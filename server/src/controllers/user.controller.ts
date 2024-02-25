@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import userService from "../services/user.service";
+import hash from "../utils/hash";
+
 
 export async function getAllUsers(_req: Request, res: Response) {
     try {
@@ -27,15 +29,18 @@ export async function getUserById(req: Request, res: Response) {
     }
 }
 
-export type userData = { password: string; email: string };
+export type userData = { fname :string , lname:string , email :string, password:string , gender:string, address :string, telephone:string , dateOfBirth :string, role :string  };
 export async function createUser(req: Request, res: Response) {
     try {
-        const { password, email } = req.body as userData;
-        if (!password || !email)
+      
+        const { fname , lname , email , password , gender, address , telephone , dateOfBirth , role  } = req.body as userData;
+        if (!fname || !lname || !email || !password || !gender|| !address || !telephone || !dateOfBirth || !role){
             return res
-                .status(400)
-                .send("Password and Email are required fields.");
-        const newUser = await userService.createUser({ password, email });
+            .status(400)
+            .send("fields are required ")    
+        }
+        const hashedPassword =hash(password)
+        const newUser = await userService.createUser({ fname , lname , email , password :hashedPassword , gender, address , telephone , dateOfBirth , role  });
         if (!newUser) res.status(500).send("Internal server error");
         return res.status(201).send(newUser);
     } catch (error) {
@@ -43,25 +48,6 @@ export async function createUser(req: Request, res: Response) {
         return res.status(500).send({ message: error });
     }
 }
-export async function login(req: Request, res: Response) {
-    try {
-        const { password, email } = req.body as userData;
-        if (!password || !email)
-            return res
-                .status(400)
-                .send("Password and Email are required fields.");
-       
-        const user = await userService.getUserByEmail(email);
-        if (!user || !user.found) return res.status(404).send("User not found");
-        if (user.data.password !== password)
-            return res.status(401).send("Invalid password");
-        return res.status(200).send(user.data);
-    } catch (error) {
-        console.log(error);
-        return res.status(500).send({ message: error });
-    }
-}
-
 export async function updateUser(req: Request, res: Response) {
     try {
         const { password, email } = req.body as userData;
@@ -70,19 +56,18 @@ export async function updateUser(req: Request, res: Response) {
             return res
                 .status(400)
                 .send("id, Password and Email are required to update a User.");
-        const updatedUser = await userService.updateUser(id, {
-            password,
-            email,
-        });
-        if (!updatedUser || !updatedUser.found)
-            res.status(500).send("Internal server error");
-        return res.status(201).send(updatedUser?.data);
+        // const updatedUser = await userService.updateUser(id, {
+        //     password,
+        //     email,
+        // });
+        // if (!updatedUser || !updatedUser.found)
+        //     res.status(500).send("Internal server error");
+        // return res.status(201).send(updatedUser?.data);
     } catch (error) {
         console.log(error);
         return res.status(500).send({ message: error });
     }
 }
-
 export async function deleteUser(req: Request, res: Response) {
     try {
         const id = req.params.id;

@@ -3,7 +3,8 @@ export default {
   Users: {
     base: '/users',
     one: '/users/:id',
-    login:'/users/login'
+    login : '/users/login',
   },
 } as const;    
+
     

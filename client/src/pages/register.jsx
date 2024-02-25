@@ -30,9 +30,8 @@ function Register() {
   const { errors } = formState;
 
   const onSubmit = (data) => {
-    console.log(data);
     axios
-      .post("http://localhost:3000/api/users/register", data)
+      .post("http://localhost:3000/api/users", data)
       .then((response) => {
         console.log(response);
       })

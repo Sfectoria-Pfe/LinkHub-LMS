@@ -18,14 +18,6 @@ async function getUserById(userId: string) {
         console.log(error);
     }
 }
-async function getUserByEmail(email: string) {
-    try {
-        const user = await User.findOne({email});
-        return { found: !!user, data: user };
-    } catch (error) {
-        console.log(error);
-    }
-}
 
 async function createUser(userData: userData) {
     try {
@@ -64,7 +56,6 @@ const userService = {
     createUser,
     updateUser,
     deleteUser,
-    getUserByEmail
 };
 
 export default userService;
