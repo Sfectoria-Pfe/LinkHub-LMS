@@ -1,7 +1,9 @@
 import { Card, Form, Row, Col, Container, Button } from "react-bootstrap";
+import { FaFacebook, FaTwitter, FaGoogle, FaGithub } from "react-icons/fa";
+
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import regestImg from "../components/Assets/img.png";
+//import backImg from "../components/Assets/imgs/img.png";
 import "./Register.css"; // Import the CSS file for styling
 
 function Register() {
@@ -41,23 +43,37 @@ function Register() {
   };
 
   return (
-    <Container>
+    <Container
+      fluid
+      // style={{
+      //   backgroundImage: url(${backImg}),
+      //   backgroundSize: "cover",
+      //   backgroundPosition: "center",
+      // }}
+    >
       <Row
-        style={{
-          boxShadow: "0 4px 8px rgba(0,0,0,0.1)", // Add box shadow here
-          background: "linear-gradient(to right, #2980b9, #6dd5fa, #ffffff)",
-          minHeight: "100vh",
-          display: "flex",
-          marginTop: "20px",
-          alignItems: "center",
-          borderRadius: "30px",
-          justifyContent: "center",
-        }}
+        className="justify-content-center align-items-center"
+        style={{ minHeight: "90vh" }}
       >
         {/* Left Column for Form */}
-        <Col md={8} lg={6} sm={12} style={{ marginTop: "20px" }}>
-          <Card>
-            <Form className="m-3 py-3 px-4" onSubmit={handleSubmit(onSubmit)}>
+        <Col
+          md={8}
+          lg={6}
+          sm={12}
+          style={{
+            marginTop: "20px",
+            marginBottom: "20px",
+            maxWidth: "600px",
+            margin: "0 auto",
+          }}
+        >
+          <Card
+            style={{
+              boxShadow: "50px 26px 22px -1px rgba(0,0,0,0.61)",
+              marginTop: "60px",
+            }}
+          >
+            <Form className="m-3 py-2 px-3" onSubmit={handleSubmit(onSubmit)}>
               <Form.Group as={Row}>
                 <Form.Label>FirstName</Form.Label>
                 <Form.Control
@@ -139,7 +155,7 @@ function Register() {
               <Form.Group as={Row}>
                 <Form.Label>Password</Form.Label>
                 <Form.Control
-                  type="text"
+                  type="password"
                   {...register("password", {
                     required: {
                       value: true,
@@ -280,25 +296,48 @@ function Register() {
               >
                 Reset
               </Button>
+              <div
+                className="d-flex justify-content-between mx-auto"
+                style={{ width: "40%", marginTop: "20px" }}
+              >
+                <Button
+                  tag="a"
+                  href="#!"
+                  variant="light"
+                  className="m-1 icon-button"
+                >
+                  <FaFacebook size="2em" />
+                </Button>
+
+                <Button
+                  tag="a"
+                  href="#!"
+                  variant="light"
+                  className="m-1 icon-button"
+                >
+                  <FaTwitter size="2em" />
+                </Button>
+
+                <Button
+                  tag="a"
+                  href="#!"
+                  variant="light"
+                  className="m-1 icon-button"
+                >
+                  <FaGoogle size="2em" />
+                </Button>
+
+                <Button
+                  tag="a"
+                  href="#!"
+                  variant="light"
+                  className="m-1 icon-button"
+                >
+                  <FaGithub size="2em" />
+                </Button>
+              </div>
             </Form>
           </Card>
-        </Col>
-
-        {/* Right Column for Image */}
-        <Col
-          className="d-none d-lg-block
-"
-          md={4}
-          lg={6}
-          sm={0}
-          style={{ marginTop: "20px" }}
-        >
-          {/* Replace the placeholder image path with your actual image path */}
-          <img
-            src={regestImg}
-            alt="E-Learning"
-            style={{ width: "100%", height: "auto" }}
-          />
         </Col>
       </Row>
     </Container>
