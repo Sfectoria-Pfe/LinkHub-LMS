@@ -1,7 +1,9 @@
 import { Request, Response } from "express";
 import userService from "../services/user.service";
 import hash from "../utils/hash";
-
+import {ObjectId} from  "mongodb"
+import bcrypt from "bcryptjs"
+import { generateToken } from "../utils/token";
 
 export async function getAllUsers(_req: Request, res: Response) {
     try {
@@ -39,10 +41,15 @@ export async function createUser(req: Request, res: Response) {
             .status(400)
             .send("fields are required ")    
         }
+        const user = await userService.getUserByEmail(email);
+        if (user?.data  )
+         return    res.status(403).send("Email already exist "); 
         const hashedPassword =hash(password)
         const newUser = await userService.createUser({ fname , lname , email , password :hashedPassword , gender, address , telephone , dateOfBirth , role  });
-        if (!newUser) res.status(500).send("Internal server error");
-        return res.status(201).send(newUser);
+        if (!newUser) return res.status(500).send("Internal server error");
+        const {token,expires} =  generateToken(newUser._id) 
+        res.cookie("token" ,token , {maxAge : expires}) 
+        return res.status(201).send("user created");
     } catch (error) {
         console.log(error);
         return res.status(500).send({ message: error });
@@ -70,6 +77,7 @@ export async function updateUser(req: Request, res: Response) {
 }
 export async function deleteUser(req: Request, res: Response) {
     try {
+        
         const id = req.params.id;
         if (!id || id.length != 24)
             return res
@@ -84,5 +92,31 @@ export async function deleteUser(req: Request, res: Response) {
         return res.status(500).send({ message: error });
     }
 }
- 
-    
+export  type userLoginData = {email : string , password : string }
+export async function login(req: Request, res: Response) {
+    try {
+        const { password, email } = req.body as userLoginData;
+        if (!password || !email )
+            return res
+                .status(400)
+                .send("Password and Email are required .");
+
+        const user = await userService.getUserByEmail(email);
+        if (!user || !user.found  )
+         return    res.status(500).send("Internal server error"); 
+        const verifyPassword = bcrypt.compareSync(password , user.data?.password )
+        if (!verifyPassword) 
+
+        return res.status(401).send('invalide password ') ; 
+    const {token,expires} =  generateToken(user.data._id) 
+        res.cookie("token" ,token , {maxAge : expires})
+         
+        return res.status(200).send("Loged");
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({ message: error });
+    }
+
+
+}
+

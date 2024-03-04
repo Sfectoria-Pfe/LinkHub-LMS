@@ -5,6 +5,8 @@ export default {
     db: {
         uri: process.env.DB_URI ?? "",
         Name: process.env.DB_NAME ?? ""
+
     },
+    secret :process.env.SECRET_KEY ?? ""
 } as const;
     

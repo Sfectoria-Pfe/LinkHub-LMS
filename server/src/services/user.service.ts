@@ -19,6 +19,15 @@ async function getUserById(userId: string) {
     }
 }
 
+async function getUserByEmail(userEmail: string) {
+    try {
+        const user = await User.findOne({email :userEmail});
+        return { found: !!user, data: user };
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 async function createUser(userData: userData) {
     try {
         const user = new User(userData);
@@ -55,8 +64,13 @@ const userService = {
     getUserById,
     createUser,
     updateUser,
-    deleteUser,
+    deleteUser,getUserByEmail
 };
+
+
+
+
+
 
 export default userService;
 

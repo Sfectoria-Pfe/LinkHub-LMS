@@ -5,4 +5,5 @@ const hachedPass = bcrypt.hashSync(password , salt)
 return hachedPass 
 
 }
+
 export default hash 
