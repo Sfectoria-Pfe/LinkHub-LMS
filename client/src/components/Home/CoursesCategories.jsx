@@ -15,7 +15,7 @@ function CoursesCategories() {
             Categories
           </h4>
 
-          <h1 className="mb-5">Courses Categories</h1>
+          <h1 className="mb-5">Cours Categories</h1>
         </div>
         <div className="row g-3">
           <div className="col-lg-7 col-md-6">

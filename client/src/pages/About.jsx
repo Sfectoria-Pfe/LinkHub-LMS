@@ -3,8 +3,8 @@ import { Container, Row, Col, Image, Button, Card } from "react-bootstrap";
 
 import imgAbout from "../components/Assets/imgs/about.jpg";
 import coverPhoto from "../components/Assets/imgs/E-learning-facility-for-Pakistani-Students.jpg";
-import graduation from "../components/Assets/imgs/graduation-hat.png";
-import onlineclass from "../components/Assets/imgs/online-class.png";
+// import graduation from "../components/Assets/imgs/graduation-hat.png";
+// import onlineclass from "../components/Assets/imgs/online-class.png";
 // import idea from "../components/Assets/imgs/idea.png";
 // import book from "../components/Assets/imgs/book.png";
 import "./about.css";
@@ -45,8 +45,12 @@ const About = () => {
         <Container>
           <Row className="g-4">
             <Col lg={3} sm={6} className="wow fadeInUp" data-wow-delay="0.1s">
-              <Card className="custom-card">
-                <Card.Img variant="top" src={onlineclass} />
+              <Card className="custom-card d-flex align-items-center justify-content-center">
+                <i
+                  className="fa fa-6x fa-globe text-primary mb-4"
+                  aria-hidden="true"
+                  style={{ color: "#0175CD" }}
+                ></i>
                 <Card.Body>
                   <Card.Title style={{ color: "#007BFF" }}>
                     Skilled Instructors
@@ -59,8 +63,12 @@ const About = () => {
               </Card>
             </Col>
             <Col lg={3} sm={6} className="wow fadeInUp" data-wow-delay="0.1s">
-              <Card className="custom-card">
-                <Card.Img variant="top" src={graduation} />
+              <Card className="custom-card d-flex align-items-center justify-content-center">
+                <i
+                  className="fa fa-6x fa-globe text-primary mb-4"
+                  aria-hidden="true"
+                  style={{ color: "#87CEEB" }}
+                ></i>
                 <Card.Body>
                   <Card.Title style={{ color: "#007BFF" }}>
                     Skilled Instructors
