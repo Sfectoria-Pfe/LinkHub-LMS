@@ -1,0 +1,34 @@
+[
+    {
+      "id": 1,
+      "title": "Titre du cours 1",
+      "description": "Description du cours 1",
+      "img": "public/assets/js.png"
+    },
+    {
+      "id": 2,
+      "title": "Titre du cours 2",
+      "description": "Description du cours 2",
+      "img": "public/assets/react.png"
+    },
+    {
+      "id": 3,
+      "title": "Titre du cours 3",
+      "description": "Description du cours 3",
+      "img": "public/assets/node.png"
+    } ,
+    {
+        "id": 3,
+        "title": "Titre du cours 3",
+        "description": "Description du cours 3",
+        "img": "public/assets/node.png"
+      },
+      {
+        "id": 3,
+        "title": "Titre du cours 3",
+        "description": "Description du cours 3",
+        "img": "public/assets/node.png"
+      }
+
+  ]
+  
