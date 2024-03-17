@@ -8,6 +8,9 @@ import { errorMiddleware } from "./middlewares/errors";
 import { SignUpSchema } from "./schema/users";
 import cors from "cors"; // Import the 'cors' package
 
+import { Server } from "socket.io";
+import http from "http"; // Import the 'http' module
+
 const app: Express = express();
 // Enable CORS for your React application
 app.use(cors({ origin: "http://localhost:5173" }));
@@ -23,5 +26,5 @@ app.use("/api", rootRouter);
 app.use(errorMiddleware);
 
 app.listen(PORT, () => {
-  console.log("Server is running");
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
