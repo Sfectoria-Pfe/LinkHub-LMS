@@ -7,13 +7,13 @@ function Layouts() {
 
   return (
     <>
-      <Navbare />
+      {/* Afficher la navbar uniquement si l'URL n'est pas "/Dashboard" */}
+      {location.pathname !== "/Dashboard" && <Navbare />}
+      
       <Outlet />
-      {!(
-        location.pathname === "/login" || location.pathname === "/register"
-      ) ? (
-        <Footer />
-      ) : null}
+      
+      {/* Afficher le footer sur toutes les pages sauf "/login" et "/register" */}
+      {!["/login", "/register"].includes(location.pathname) && <Footer />}
     </>
   );
 }

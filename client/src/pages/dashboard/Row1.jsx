@@ -4,8 +4,6 @@ import Data from './Data.json'; // Assuming Data.json is in the same directory
 import { motion } from 'framer-motion';
 import Box from '@mui/material/Box';
 import CategoryFilter from './Category.filter'
-// import Button from '@mui/material/Button';
-// import Link from '@mui/material/Link';
 import CoursesPreview from './CoursesPreview';
 function Row1() {
   

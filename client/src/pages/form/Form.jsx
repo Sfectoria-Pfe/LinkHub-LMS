@@ -8,6 +8,11 @@ import { useDropzone } from "react-dropzone";
 
 // ... rest of your code
 
+// Cloudinary Constants
+
+
+
+
 const  regEmail 
 =/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -30,7 +35,7 @@ const data = [
 ];
 const Form = () => {
   const [open, setOpen] = React.useState(false);
-  const [file, setFile] = React.useState(null);
+
 
   const {
     register,
@@ -62,13 +67,10 @@ const Form = () => {
     setOpen(true);
   };
 
-  const onSubmit = () => {
-    console.log("doneeeeeeeeeeee");
-   
-
-
 
     
+  const onSubmit = () => {
+
   };
 
   return (
@@ -86,7 +88,10 @@ const Form = () => {
       >
 <Box sx={{ mb: 3 }}>
   <Box {...getRootProps()} sx={{ position: "relative" }}>
-    <input {...getInputProps()} />
+  <input
+      {...getInputProps()}
+      type="file"
+      onChange={(e) => console.log(e)} />
     {file ? (
       <Avatar
         src={URL.createObjectURL(file)}
@@ -177,17 +182,7 @@ const Form = () => {
   
         <Box sx={{ textAlign: "right" }}>
         
-  
-          <Snackbar
-            anchorOrigin={{ vertical: "top", horizontal: "right" }}
-            open={open}
-            autoHideDuration={3000}
-            onClose={handleClose}
-          >
-            <Alert onClose={handleClose} severity="info" sx={{ width: "100%" }}>
-              Account Updated successfully
-            </Alert>
-          </Snackbar>
+
         </Box>
       </Box>
       <Box sx={{ textAlign: "right" }}>
@@ -195,22 +190,12 @@ const Form = () => {
   type="submit"
   sx={{ textTransform: "capitalize" }}
   variant="contained"
-  onClick={handleSubmit(onSubmit)} // Add handleSubmit here
->
+  onClick={handleSubmit(onSubmit)} >
   Update Profil
 </Button>
 
 
-        <Snackbar
-          anchorOrigin={{ vertical: "top", horizontal: "right" }}
-          open={open}
-          autoHideDuration={3000}
-          onClose={handleClose}
-        >
-          <Alert onClose={handleClose} severity="info" sx={{ width: "100%" }}>
-            Account Updated successfully
-          </Alert>
-        </Snackbar>
+     
       </Box>
     </Box>
   );

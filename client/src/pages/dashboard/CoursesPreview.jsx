@@ -7,9 +7,7 @@ function CoursesPreview() {
   return (
     <div>
   <NestedCourses/>
-  <NestedCourses/>
-  <NestedCourses/>
-  <NestedCourses/>
+
 
     </div>
   )
