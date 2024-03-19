@@ -15,6 +15,7 @@ import HtmlRoundedIcon from '@mui/icons-material/HtmlRounded';
 import SvgIcon from '@mui/material/SvgIcon';
 import { saveAs } from 'file-saver';
 import { useState } from 'react';
+import axios from 'axios';
 const PdfIcon = () => (
   <SvgIcon viewBox="0 0 24 24" color="action">
     <path d="M14 0h4v14h-4zM0 0h10v14H0zM16 0h8v14h-8z" />
@@ -26,13 +27,7 @@ function NestedList({ selectedProject }) {
   const [open, setOpen] = useState(true);
   const [projectPdfUrl, setProjectPdfUrl] = useState('');
 
-  // Replace this logic with your implementation to determine the PDF URL based on project data
-  React.useEffect(() => {
-    if (selectedProject) {
-      const projectId = selectedProject.id; // Assuming project has an ID
-      setProjectPdfUrl(`./../../../public/assets/CDC_LMS (2).pdf`); // Adjust path based on your structure
-    }
-  }, [selectedProject]);
+
 
   const handleStarredClick = () => {
     fetch(projectPdfUrl)
@@ -50,9 +45,26 @@ function NestedList({ selectedProject }) {
   const handleClick = () => {
     setOpen(!open);
   };
-  const handlePdfView = () => {
-    window.open(projectPdfUrl, '_blank'); // Open PDF in new tab
+//  function to upload image , zip , file ... 
+  const [file, setFile] = React.useState(null);
+  const uploadPdf = async () => {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', 'Attachement');
+  
+    try {
+      const response = await axios.post('https://api.cloudinary.com/v1_1/dbe8ewrpo/raw/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      console.log(response.data);
+    } catch (error) {
+      console.error('Erreur lors de l\'upload du PDF :', error.message);
+    }
   };
+  
+// fin de function 
   return (
     <List
       sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
@@ -62,8 +74,7 @@ function NestedList({ selectedProject }) {
         <ListSubheader component="div" id="nested-list-subheader">
           {/* Content */}
         </ListSubheader>
-      }
-    >
+      } >
       <ListItemButton onClick={handleClick}>
         <ListItemIcon>
           <HtmlRoundedIcon />
@@ -73,11 +84,11 @@ function NestedList({ selectedProject }) {
       </ListItemButton>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-        <ListItemButton sx={{ pl: 4 }} onClick={handlePdfView}>
-    <ListItemIcon>
-      <PdfIcon />
-    </ListItemIcon>
-    <ListItemText primary="View Course PDF" />
+        <ListItemButton sx={{ pl: 4 }} >
+          <input type="file" onChange={(e)=>setFile(e.target.files[0])} />
+          <br/>
+          <button onClick={uploadPdf}> upload  </button>
+     
   </ListItemButton>
           {/* Other list items */}
         </List>
